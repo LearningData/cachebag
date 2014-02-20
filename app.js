@@ -16,7 +16,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/images', images.download);
+app.get('/images/:size/:file', images.download);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Running Cachebag on port ' + app.get('port'));
