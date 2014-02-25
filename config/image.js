@@ -7,6 +7,7 @@ exports.image_config = {
     },
     medium: {
       "width": 400,
-      "height": 400
+      "height": 400,
+      "folder": "/Projects/cachebag/images/medium/"
     }
 };
