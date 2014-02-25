@@ -1,10 +1,10 @@
-fs = require('fs');
-var imagesPath = "./images/";
+var fs = require('fs');
+var image_config = require("../config/image.js").image_config;
 
 exports.download = function(req, res) {
-  var path = imagesPath + req.params.size + "/" + req.params.file;
-  console.log("Working: " + path);
-  fs.readFile(path , function (err, data) {
+  var config = image_config[req.params.size];
+
+  fs.readFile(config.folder + req.params.file , function (err, data) {
     if (err) {
       res.send("Image not found");
     } else {

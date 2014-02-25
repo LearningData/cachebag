@@ -1,13 +1,16 @@
 var request = require("request");
 var fs = require("fs");
 var image = require("imagemagick");
+var image_config = require("../config/image.js").image_config;
 
 var ImageModule = {
   getImage: function(url, filename){
     request(url).pipe(fs.createWriteStream("/tmp/" + filename));
   },
   resizeImage: function(pathImage, name, size) {
-    image.resize({srcPath: pathImage, dstPath: "/tmp/thumb/"+name, width: 200});
+    var config = image_config[size];
+    image.resize({srcPath: pathImage, dstPath: config.folder + name,
+      width: config.width});
   }
 }
 
