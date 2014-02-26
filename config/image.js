@@ -9,5 +9,8 @@ exports.image_config = {
       "width": 400,
       "height": 400,
       "folder": "/Projects/cachebag/images/medium/"
+    },
+    original: {
+      "folder": "/Projects/cachebag/images/original/"
     }
 };
