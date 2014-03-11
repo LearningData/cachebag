@@ -6,25 +6,33 @@ var image_config = require("../config/image.js").image_config;
 var url = "http://demo.learningdata.net:81/resources/download/";
 
 var ImageModule = {
-  saveImage: function(id, filename, size, callback){
+  saveImage: function(id, size, callback){
     var path = image_config[size].folder;
-    request(url + id).pipe(fs.createWriteStream(path + id + "_" + filename));
+    request(url + id).pipe(fs.createWriteStream(path + id));
 
-    var data = fs.readFileSync(path + id + "_" + filename);
+    var data = fs.readFileSync(path + id);
     return callback(data);
   },
-  resizeImage: function(pathImage, id, name, size) {
+  resizeImage: function(pathImage, id, size) {
     var config = image_config[size];
-    var resizedPath = config.folder + id + "_" + name;
+    var resizedPath = config.folder + id;
     console.log("Resizing image: " + resizedPath);
     fs.exists(pathImage, function(exists) {
       if(exists) {
-        image.resize({srcPath: pathImage, dstPath: resizedPath,
-          width: config.width, height: config.height}, function(err, stdout, stderr){
-            if (err) { console.log("ERROR: " + err); }
+        var params = {
+          srcPath: pathImage,
+          dstPath: resizedPath,
+          width: config.width
+        };
+
+        image.resize(params, function(err, stdout, stderr){
+            if (err) {
+              console.log("ERROR: " + err);
+              return;
+            }
         });
       } else {
-        console.log("NON EXIST");
+        console.log("File not found");
       }
     });
   }
