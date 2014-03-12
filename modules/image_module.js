@@ -6,32 +6,16 @@ var imageConfig = require("../config/image.js").image_config;
 var url = "http://demo.learningdata.net:81/resources/download/";
 
 var ImageModule = {
-  saveImage: function(id, size, callback){
-    var path = imageConfig[size].folder + id;
+  save: function(id, size){
     var originalPath = imageConfig["original"].folder + id;
-
     var req = request(url + id).pipe(fs.createWriteStream(originalPath));
 
     req.on("close", function(){
       console.log("Resizing: " + originalPath);
-
-      var params = {
-        srcPath: originalPath,
-        dstPath: path,
-        width: imageConfig[size].width
-      };
-
-      image.resize(params, function(err, stdout, stderr){
-        if(err) {
-          return callback({"err": "error to resize"})
-        } else {
-          var data = fs.readFileSync(path);
-          return callback(data);
-        }
-      });
+      ImageModule.resize(originalPath, id, size);
     });
   },
-  resizeImage: function(pathImage, id, size) {
+  resize: function(pathImage, id, size) {
     var config = imageConfig[size];
     var resizedPath = config.folder + id;
     console.log("Resizing image: " + resizedPath);
@@ -44,10 +28,7 @@ var ImageModule = {
         };
 
         image.resize(params, function(err, stdout, stderr){
-            if (err) {
-              console.log("ERROR: " + err);
-              return;
-            }
+            if (err) { throw err; }
         });
       } else {
         console.log("File not found");

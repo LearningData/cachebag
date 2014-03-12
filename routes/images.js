@@ -10,11 +10,13 @@ exports.download = function(req, res) {
     if(!exists){
       console.log("Saving new image: " + req.params.id);
 
-      ImageModule.saveImage(req.params.id, req.params.size, function(err, data){
+      ImageModule.save(req.params.id, req.params.size, function(err, msg){
           if(err) {
             res.end("Error save image");
             return;
           }
+
+          console.log(msg);
       });
     }
 
