@@ -1,20 +1,38 @@
 var request = require("request");
 var fs = require("fs");
 var image = require("imagemagick");
-var image_config = require("../config/image.js").image_config;
+var imageConfig = require("../config/image.js").image_config;
 
 var url = "http://demo.learningdata.net:81/resources/download/";
 
 var ImageModule = {
   saveImage: function(id, size, callback){
-    var path = image_config[size].folder;
-    request(url + id).pipe(fs.createWriteStream(path + id));
+    var path = imageConfig[size].folder + id;
+    var originalPath = imageConfig["original"].folder + id;
 
-    var data = fs.readFileSync(path + id);
-    return callback(data);
+    var req = request(url + id).pipe(fs.createWriteStream(originalPath));
+
+    req.on("close", function(){
+      console.log("Resizing: " + originalPath);
+
+      var params = {
+        srcPath: originalPath,
+        dstPath: path,
+        width: imageConfig[size].width
+      };
+
+      image.resize(params, function(err, stdout, stderr){
+        if(err) {
+          return callback({"err": "error to resize"})
+        } else {
+          var data = fs.readFileSync(path);
+          return callback(data);
+        }
+      });
+    });
   },
   resizeImage: function(pathImage, id, size) {
-    var config = image_config[size];
+    var config = imageConfig[size];
     var resizedPath = config.folder + id;
     console.log("Resizing image: " + resizedPath);
     fs.exists(pathImage, function(exists) {
