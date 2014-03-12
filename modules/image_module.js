@@ -13,7 +13,7 @@ var ImageModule = {
     fs.readFile(filename, function(err, data){
       if(err) { callback(err); }
 
-      callback(null, data);
+      return callback(null, data);
     });
   },
   save: function(id, size, callback){
