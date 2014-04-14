@@ -3,7 +3,7 @@ var fs = require("fs");
 var image = require("imagemagick");
 var imageConfig = require("../config/image.js").image_config;
 
-var url = "http://demo.learningdata.net:81/resources/download/";
+var url = "http://resourcebag.cloudapp.net:81/resources/download/";
 
 var ImageModule = {
   get: function(id, size, callback) {
