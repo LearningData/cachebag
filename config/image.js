@@ -1,16 +1,16 @@
 exports.image_config = {
-    folder: "/Projects/cachebag/images/",
+    folder: "/Projects/images/",
     small: {
       "width": 200,
       "height": 250,
-      "folder": "/Projects/cachebag/images/thumb/"
+      "folder": "/Projects/images/thumb/"
     },
     medium: {
       "width": 400,
       "height": 450,
-      "folder": "/Projects/cachebag/images/medium/"
+      "folder": "/Projects/images/medium/"
     },
     original: {
-      "folder": "/Projects/cachebag/images/original/"
+      "folder": "/Projects/images/original/"
     }
 };
