@@ -17,3 +17,7 @@ exports.download = function(req, res) {
     });
   }
 };
+
+exports.test = function(req, res) {
+    res.end("It's working");
+}

@@ -31,7 +31,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:web), in: :sequence, wait: 5 do
-      execute "cd #{deploy_to}/current && sudo npm install"
+      execute "cd #{deploy_to}/current && npm install"
       execute "cd #{deploy_to}/current && forever restart app.js"
     end
   end
@@ -39,7 +39,7 @@ namespace :deploy do
   desc 'Npm install'
   task :npm_install do
     on roles(:web), in: :sequence do
-      execute "cd #{deploy_to}/current && sudo npm install"
+      execute "cd #{deploy_to}/current && npm install"
     end
   end
 
