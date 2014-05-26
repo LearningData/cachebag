@@ -1,4 +1,5 @@
 exports.image_config = {
+    server: "http://demo.learningdata.net:81/resources/download/",
     folder: "/Projects/images/",
     small: {
       "width": 200,

@@ -4,18 +4,24 @@ var fs = require("fs");
 
 exports.download = function(req, res) {
   var config = image_config[req.params.size];
-  var filename = config.folder + req.params.id;
 
-  if(fs.existsSync(filename)) {
-    ImageModule.get(req.params.id, req.params.size, function(err, data){
-      res.end(data, "binary");
-    });
+  if(config) {
+    var filename = config.folder + req.params.id;
+
+    if(fs.existsSync(filename)) {
+      ImageModule.get(req.params.id, req.params.size, function(err, data){
+        res.end(data, "binary");
+      });
+    } else {
+      console.log("Saving new image: " + req.params.id);
+      ImageModule.save(req.params.id, req.params.size, function(err, data){
+        res.end(data, "binary");
+      });
+    }
   } else {
-    console.log("Saving new image: " + req.params.id);
-    ImageModule.save(req.params.id, req.params.size, function(err, data){
-      res.end(data, "binary");
-    });
+      res.send(404, 'Image not found');
   }
+
 };
 
 exports.test = function(req, res) {
