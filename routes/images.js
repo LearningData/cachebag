@@ -15,11 +15,15 @@ exports.download = function(req, res) {
     } else {
       console.log("Saving new image: " + req.params.id);
       ImageModule.save(req.params.id, req.params.size, function(err, data){
-        res.end(data, "binary");
+        if(err) {
+          res.send(404, 'Image not found');
+        } else {
+          res.end(data, "binary");
+        }
       });
     }
   } else {
-      res.send(404, 'Image not found');
+    res.send(404, 'Image not found');
   }
 
 };
