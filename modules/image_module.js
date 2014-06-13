@@ -24,13 +24,13 @@ var ImageModule = {
     req.on("close", function(){
       console.log("Save and Resizing: " + originalPath);
       ImageModule.resize(originalPath, id, size, function(err, data){
-        if(err) { 
+        if(err) {
             console.log(err);
             return callback(err, null);
-        };
-
-        var resized = fs.readFileSync(resizedPath);
-        return callback(null, resized);
+        } else {
+            var resized = fs.readFileSync(resizedPath);
+            return callback(null, resized);
+        }
       });
     });
   },
