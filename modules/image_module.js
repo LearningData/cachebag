@@ -18,7 +18,8 @@ var ImageModule = {
   },
   save: function(id, size, callback){
     var originalPath = imageConfig["original"].folder + id;
-    var req = request(url + id).pipe(fs.createWriteStream(originalPath));
+    var req = request({url: url + id, rejectUnauthorized: false})
+                    .pipe(fs.createWriteStream(originalPath));
     var resizedPath = imageConfig[size].folder + id;
 
     req.on("close", function(){
