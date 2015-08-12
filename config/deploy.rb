@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.1.0'
+lock '>=3.1.0'
 
 set :application, 'cachebag'
 set :repo_url, 'git@git.learningdata.net:cachebag.git'
@@ -40,6 +40,12 @@ namespace :deploy do
   task :npm_install do
     on roles(:web), in: :sequence do
       execute "cd #{deploy_to}/current && npm install"
+    end
+  end
+  desc 'Copy config files'
+  task :config_files do
+    on roles(:web), in: :sequence do
+      execute "cp #{deploy_to}/config_files/* #{deploy_to}/current/config/"
     end
   end
 
