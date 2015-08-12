@@ -50,4 +50,5 @@ namespace :deploy do
   end
 
   after "deploy", "deploy:npm_install"
+  after "deploy", "deploy:config_files"
 end
