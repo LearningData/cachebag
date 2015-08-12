@@ -1,17 +1,17 @@
 exports.image_config = {
-    server: "http://resourcebag.cloudapp.net/resources/download/",
-    folder: "/Projects/images/",
+    server: "https://resourcebag.learningdata.net/resources/download/",
+    folder: "/Projects/cachebag/images/",
     small: {
       "width": 200,
       "height": 250,
-      "folder": "/Projects/images/thumb/"
+      "folder": "/Projects/cachebag/images/thumb/"
     },
     medium: {
       "width": 400,
       "height": 450,
-      "folder": "/Projects/images/medium/"
+      "folder": "/Projects/cachebag/images/medium/"
     },
     original: {
-      "folder": "/Projects/images/original/"
+      "folder": "/Projects/cachebag/images/original/"
     }
 };
